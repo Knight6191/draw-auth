@@ -1,5 +1,6 @@
 var start = false;
 var end = true;
+
 $( document ).ready(function() {
     // start click
     $(document).on('mousedown', '#table-auth', function () {
@@ -21,12 +22,8 @@ $( document ).ready(function() {
             $(this).addClass('active');
         }
     });
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 });
+
 /**
 * save auth
 */
@@ -39,12 +36,13 @@ function saveAuth(){
                 column: $(this).attr('column'),
             })
         });
+        var auth = renderAuth(email, data);
         //
         $.ajax({
             type        :   'POST',
             url         :   '/main/save-auth',
             dataType    :   'json',
-            data        :   {data},
+            data        :   {auth},
             success: function(res) {
                 swal("Save draw auth has success", "", "success");
             },

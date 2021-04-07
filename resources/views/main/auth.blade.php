@@ -32,4 +32,7 @@
         </div>
     </div>
 </div>
+<script>
+    var email = '{{ $email }}';
+</script>
 @endsection

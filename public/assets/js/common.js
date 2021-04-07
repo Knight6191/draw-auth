@@ -3,6 +3,18 @@ const text_auth =   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Se
                     aliquam nulla elit, in tempor massa semper eget. Ut ultricies sit amet nibh fermentum\
                     fringilla. Quisque vitae imperdiet sem. Nunc eu leo nec urna vestibulum bibendum. Sed\
                     sit amet mauris nisl. Mauris venenatis pellentesque.'
+
+$( document ).ready(function() {                    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+});
+
+/**
+* render hash md5
+*/
 function renderAuth(email, data){
     var auth = "";
     //convert string to array

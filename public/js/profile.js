@@ -13,12 +13,8 @@ $( document ).ready(function() {
     $(document).on('click','#btn-save',function(){
         saveProfile();
     });
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 });
+
 /**
 * save profile
 */
@@ -51,6 +47,7 @@ function saveProfile(){
             console.log('saveProfile:' + e.message);
         }
 }
+
 /**
 * preview when upload images
 */
@@ -67,6 +64,7 @@ function saveProfile(){
         }
     }
 }
+
 /**
  * upload_file
  */
@@ -103,6 +101,6 @@ function saveProfile(){
         return file_name;
 
     } catch (e)  {
-        alert('backToHome:  ' + e.message);
+        alert('upload file:  ' + e.message);
     }
 }

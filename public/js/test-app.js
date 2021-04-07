@@ -84,7 +84,7 @@ function checkAuth(){
                 if(data && data.id){
                     getProfile(auth);
                 }else{
-                    swal("Draw auth has failed", "Your hash is not correct: " + auth , "error");
+                    swal("Your hash is not correct", "Hashes: " + auth , "error");
                 }
             },
             error: function (jqXHR, exception) {

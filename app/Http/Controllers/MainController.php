@@ -49,7 +49,8 @@ class MainController extends Controller
      */
     public function auth()
     {
-        return view('main.auth');
+        $email = auth()->user()->email;
+        return view('main.auth', compact("email"));
     }
 
     /**
@@ -83,7 +84,7 @@ class MainController extends Controller
     }
 
     /**
-     * Save Auth.
+     * Save Auth
      *
      * @param
      * @return data
@@ -91,32 +92,9 @@ class MainController extends Controller
     public function saveAuth(Request $request)
     {
         try{
-            $textAuth = \Config::get('app.textAuth');
-            //get only character and space
-            $textAuth = preg_replace("/[^a-zA-Z ]/", "", $textAuth);
-            //keep only 1 space
-            $textAuth =  trim(preg_replace('/\s\s+/', ' ', $textAuth));
-            //convert string to array
-            $arrayAuth = explode(" ", $textAuth);
-            //convert to array 10 x 6
-            $matrix = [[]];
-            $index = 0;
-            for($row = 0; $row < 6; $row++){
-                for($column = 0; $column < 10; $column++){
-                    $matrix[$row][$column] = $arrayAuth[$index];
-                    $index ++;
-                }
-            }
-            //
             $id         = auth()->user()->id;
-            $data = $request->all()['data'];
-            $auth = '';
-            foreach($data as $line ){
-                $auth .= $matrix[$line['row']][$line['column']];
-            }
-            $auth = auth()->user()->email . ":" . $auth;
-            $auth = md5($auth);
-            //update profile
+            $auth = $request->all()['auth'];
+            //update auth
             DB::table('users')->where('id', $id)->update([
                 'auth'      => $auth,
             ]);
